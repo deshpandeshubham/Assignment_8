@@ -1,54 +1,84 @@
 /*eslint-env browser*/
 
+var employee_list = new Array();
+    employee_list.push(["Sally Smith","Quality Assurance",3423]);
+    employee_list.push(["Mark Martin","VP Sales",3346]);
+    employee_list.push(["Shubham Deshpande","CEO",1111]);
+    employee_list.push(["Martin Smith","CTO",2222]);
+    employee_list.push(["Jim Queen","CFO",3333]);
+
+window.addEventListener("load", function () {
+    for(var i=0;i<employee_list.length;i++) {
+        addEmployee(employee_list[i][0],employee_list[i][1],employee_list[i][2]);
+    }
+
+    $("addButton").addEventListener("click",function(e) {
+        e.preventDefault();
+        addEmp();
+    });
+});
+
 var $ = function(id) {
     "use strict";
     return window.document.getElementById(id);
 }
 
-var addEmployee = function(e) {
+function addEmployee(name, title, extension) {
     "use strict";
-    var emplyeeDetails="", required, msg, name, title, extension;
-    var tableCells = window.document.getElementsByTagName("td");
+    var empTable = $("employeeDetails");
+    var row = empTable.insertRow(-1);
+    var cell = row.insertCell(-1);
+    cell.innerHTML = name;
+    cell = row.insertCell(-1);
+    cell.innerHTML = title;
+    cell = row.insertCell(-1);
+    cell.innerHTML = extension;
+    cell = row.insertCell(-1);
+    var delButton = document.createElement("BUTTON");
+    delButton.innerHTML = "Delete";
+    delButton.setAttribute("class","del");
+    delButton.setAttribute("onclick", "deleteEmp(this);");
+    cell.appendChild(delButton);
+}
+
+function deleteEmp(button) {
+    var row = button.parentNode.parentNode;
+    var table = $("employeeDetails");
+    table.deleteRow(row.rowIndex);
+    employee_list.splice(row.rowIndex,1);
+    $("employeeCount").innerHTML = "Showing " + employee_list.length + " Employees";
+}
+
+function addEmp() {
+    "use strict";
+    var tableCells = window.document.getElementsByTagName("td"), flag = false;
+    var name, title, extension, required;
     required = "<span>Required Field</span>";
     name = $("name").value;
     title = $("title").value;
     extension = $("extension").value;
+    window.console.log("Name : " + name + "\nTitle : "+title+"\nExt : "+extension);
     if(name === "") {
         tableCells[2].innerHTML = required;
+        flag = true;
     }
-    else if(title === "") {
+    if(title === "") {
         tableCells[5].innerHTML = required;
+        flag = true;
     }
-    else if(extension === "") {
+    if(extension === "") {
         tableCells[8].innerHTML = required;
+        flag = true;
     }
-    else {
-        var empCnt = "Showing 3 Employees";
-        $("employeeCount").innerHTML = empCnt;
-        $("registration_form").submit();
+    else if(!flag) {
+        addEmployee(name, title, extension);
+        employee_list.push([name,title,extension]);
+        $("employeeCount").innerHTML = "Showing " + employee_list.length + " Employees";
+        name = "";
+        title = "";
+        extension = "";
     }
 };
 
-window.addEventListener("load", function () {
-    var employee_list = [["Sally Smith","Quality Assurance",3423],
-                        ["Mark Martin","VP Sales",3346],
-                        ["John Johnson","Marketing",3232],
-                        ["Shubham Deshpande","CEO",1111],
-                        ["Martin Smith","CTO",2222],
-                        ["Jim Queen","CFO",3333]];
-    var name, title, extension, html="<tr><th>Name</th><th>Title</th><th>Extension</th><th></th></tr>";
-    var employeeDetailsTable = $("employeeDetails");
-    for(var i=0;i<employee_list.length;i++) {
-        window.console.log("Name: " + employee_list[i][0] +"\nTitle: " + employee_list[i][1] +"\nExtension: " + employee_list[i][2]);
-        var delButton = window.document.createElement("Button");
-        delButton.innerHTML = "Delete";
-        delButton.className = "del";
-        html = html + "<tr><td>" + employee_list[i][0] + "</td>" + 
-                      "<td>" + employee_list[i][1] + "</td>" + 
-                      "<td>" + employee_list[i][2] + "</td>" +
-                      "<td>" +  + "</td></tr>";
-    }
-    $("employeeDetails").innerHTML = html;
-    $("addButton").addEventListener("click", addEmployee);
-});
+
 

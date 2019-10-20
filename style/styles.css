@@ -52,6 +52,16 @@ header {
     background-color: #ADD8E6;
 }
 
+.del {
+    background-color: #008CBA;
+    border: 1px solid #008CBA;
+    color: white;
+    font-size: 13px;
+    width: 80px;
+    padding: 3px 0;
+    margin: 7px 40px;
+} 
+
 span {
     color: red;
 }
