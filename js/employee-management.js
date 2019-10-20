@@ -8,6 +8,7 @@ var employee_list = new Array();
     employee_list.push(["Jim Queen","CFO",3333]);
 
 window.addEventListener("load", function () {
+    $("registration_form").reset();
     for(var i=0;i<employee_list.length;i++) {
         addEmployee(employee_list[i][0],employee_list[i][1],employee_list[i][2]);
     }
@@ -51,32 +52,32 @@ function deleteEmp(button) {
 
 function addEmp() {
     "use strict";
-    var tableCells = window.document.getElementsByTagName("td"), flag = false;
-    var name, title, extension, required;
+    var tableCells = window.document.getElementsByTagName("td");
+    var name, title, extension, required, flag=false;
     required = "<span>Required Field</span>";
     name = $("name").value;
     title = $("title").value;
     extension = $("extension").value;
-    window.console.log("Name : " + name + "\nTitle : "+title+"\nExt : "+extension);
     if(name === "") {
         tableCells[2].innerHTML = required;
-        flag = true;
+        flag=true;
     }
     if(title === "") {
         tableCells[5].innerHTML = required;
-        flag = true;
+        flag=true;
     }
     if(extension === "") {
         tableCells[8].innerHTML = required;
-        flag = true;
+        flag=true;
     }
-    else if(!flag) {
+    if(!flag){
+        tableCells[2].innerHTML = "";
+        tableCells[5].innerHTML = "";
+        tableCells[8].innerHTML = "";
         addEmployee(name, title, extension);
         employee_list.push([name,title,extension]);
         $("employeeCount").innerHTML = "Showing " + employee_list.length + " Employees";
-        name = "";
-        title = "";
-        extension = "";
+        $("registration_form").reset();
     }
 };
 

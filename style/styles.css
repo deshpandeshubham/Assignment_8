@@ -31,7 +31,7 @@ header {
 }
 
 #employeeDetails {
-    width: 640px;
+    width: 656px;
 }
 
 #employeeDetails tr{
@@ -39,7 +39,7 @@ header {
 }
 
 #employeeDetails th {
-    width: 160px;
+    width: 167px;
     background-color : #008CBA;
     color: white;
 }
