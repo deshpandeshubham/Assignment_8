@@ -12,7 +12,7 @@ window.addEventListener("load", function () {
     for(var i=0;i<employee_list.length;i++) {
         addEmployee(employee_list[i][0],employee_list[i][1],employee_list[i][2]);
     }
-
+    $("employeeCount").innerHTML = "Showing " + employee_list.length + " Employees";
     $("addButton").addEventListener("click",function(e) {
         e.preventDefault();
         addEmp();
