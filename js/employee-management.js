@@ -74,8 +74,8 @@ function addEmp() {
         tableCells[2].innerHTML = "";
         tableCells[5].innerHTML = "";
         tableCells[8].innerHTML = "";
-        addEmployee(name, title, extension);
         employee_list.push([name,title,extension]);
+        addEmployee(name, title, extension);
         $("employeeCount").innerHTML = "Showing " + employee_list.length + " Employees";
         $("registration_form").reset();
     }
